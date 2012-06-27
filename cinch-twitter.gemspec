@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "cinch-twitter.gemspec",
     "lib/cinch/plugins/twitter.rb",
     "lib/cinch/plugins/twitter/error_handler.rb",
     "lib/cinch/plugins/twitter/formatter.rb",
