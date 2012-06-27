@@ -9,9 +9,6 @@ module Cinch
   module Plugins
     module Twitter
 
-      # Allows initialization without using Client.
-      class << Client; end
-
       class Client
         include Cinch::Plugin
         include Twitter::TweetHandler

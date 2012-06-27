@@ -19,7 +19,9 @@ Shorthand commands are also available:
 Loading
 -------
 
-This should be obvious, right? `c.plugins.plugins << Cinch::Plugins::Twitter`
+This should be obvious, right? Not so. 
+
+`c.plugins.plugins << Cinch::Plugins::Twitter::Client`
 
 Configuration
 -------------
