@@ -11,7 +11,7 @@ module Cinch
 
       # Allows initialization without using Client. Pretty much passes all args along.
       class << self
-        def initialize(*args)
+        def new(*args)
           Client.new(*args)
         end
       end
