@@ -9,22 +9,8 @@ module Cinch
   module Plugins
     module Twitter
 
-      # Allows initialization without using Client. Pretty much passes all args along.
-      class << self
-        def new(*args)
-          Cinch::Plugins::Twitter::Client.new(*args)
-        end
-
-        # Delegate to Cinch::Plugins::Twitter::Client
-        def method_missing(method, *args, &block)
-          return super unless new.respond_to?(method)
-          new.send(method, *args, &block)
-        end
-
-        def respond_to?(method, include_private=false)
-          new.respond_to?(method, include_private) || super(method, include_private)
-        end
-      end
+      # Allows initialization without using Client.
+      class << Client; end
 
       class Client
         include Cinch::Plugin
