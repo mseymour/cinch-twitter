@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/mseymour/cinch-twitter"
   gem.license = "MIT"
   gem.summary = %Q{A Cinch plugin for accessing Twitter.}
-  gem.description = %Q{A Twitter plugin for Cinch 2.0.0+. Requires Ruby 1.9.3+.}
+  gem.description = %Q{A Twitter plugin for Cinch.}
   gem.email = "mark.seymour.ns@gmail.com"
   gem.authors = ["Mark Seymour"]
   # dependencies defined in Gemfile

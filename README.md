@@ -1,7 +1,7 @@
 cinch-twitter
 =============
 
-A Cinch plugin for accessing Twitter.
+A Cinch plugin for accessing Twitter, using [John Nunemaker's](https://github.com/jnunemaker) wonderful [Twitter gem](https://github.com/jnunemaker/twitter).
 
 Requiring the gem: `require 'cinch/plugins/twitter'`
 
