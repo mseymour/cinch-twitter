@@ -19,14 +19,12 @@ Shorthand commands are also available:
 Loading
 -------
 
-This should be obvious, right? Not so. 
-
 `c.plugins.plugins << Cinch::Plugins::Twitter::Client`
 
 Configuration
 -------------
 
-To configure the plugin, you must insert your access keys for the client. If you wish, you may use `JSON` or `YAML` to store and deserialize them.
+To configure the plugin, you must insert your access keys for the client.
 
 To retrieve your access keys and `oauth` tokens, if you already have an application set up, please visit https://dev.twitter.com/apps, otherwise visit https://dev.twitter.com/apps/new and follow the instructions.
 
