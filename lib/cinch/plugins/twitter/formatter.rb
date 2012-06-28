@@ -6,7 +6,7 @@ module Cinch
   module Plugins
     class Twitter
       module Formatter
-        include Cinch::Formatting
+        extend Cinch::Formatting
 
         def format_tweet(tweet)
           tweet_text = expand_uris(tweet.text, tweet.attrs["entities"]["urls"])
