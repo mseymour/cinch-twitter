@@ -39,7 +39,7 @@ module Cinch
         options = {}
         options[:username] = username unless username.nil?
         options[:nth_tweet] = nth_tweet unless nth_tweet.nil?
-        result = tweet_by_username(options)
+        result = TweetHandler.tweet_by_username(options)
         if is_notice?(result)
           m.user.notice result.message
         else
@@ -50,7 +50,7 @@ module Cinch
       match /tw #(\d+)$/, method: :execute_id
       match /^@#(\d+)$/, method: :execute_id, use_prefix: false
       def execute_id(m, id)
-        result = tweet_by_id(id: id)
+        result = TweetHandler.tweet_by_id(id: id)
         if is_notice?(result)
           m.user.notice result.message
         else
@@ -60,7 +60,7 @@ module Cinch
 
       match /\?tw (\w+)$/, method: :execute_info, use_prefix: false
       def execute_info(m, username)
-        result = tweep_info(username: username)
+        result = TweetHandler.tweep_info(username: username)
         if is_notice?(result)
           m.user.notice result.message
         else
@@ -70,7 +70,7 @@ module Cinch
 
       match /\?ts (.+)$/, method: :execute_search, use_prefix: false
       def execute_search(m, term)
-        result = search_by_term(term: term)
+        result = TweetHandler.search_by_term(term: term)
         if is_notice?(result)
           m.user.notice result.message
         else
