@@ -6,14 +6,13 @@ module Cinch
   module Plugins
     class Twitter
       module TweetHandler
-        include Formatter
-        include ErrorHandler
-
-        EXCEPTIONS = [::Twitter::Error, ErrorHandler::Warnings]
-        AMessage = Struct.new(:message,:type)
-
         # Handler methods
         class << self
+          include Formatter
+          include ErrorHandler
+
+          EXCEPTIONS = [::Twitter::Error, ErrorHandler::Warnings]
+          AMessage = Struct.new(:message,:type)
 
           def tweet_by_username(params={})
             params = { username: "Twitter", nth_tweet: 0 }.merge(params)
