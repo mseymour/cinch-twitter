@@ -2,7 +2,7 @@
 
 module Cinch
   module Plugins
-    module Twitter
+    class Twitter
       module ErrorHandler
 
         class Warnings < StandardError

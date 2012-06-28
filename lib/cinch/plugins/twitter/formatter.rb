@@ -3,7 +3,7 @@ require 'cgi'
 
 module Cinch
   module Plugins
-    module Twitter
+    class Twitter
       module Formatter
 
         def format_tweet(tweet)
