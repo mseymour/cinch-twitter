@@ -3,8 +3,6 @@ cinch-twitter
 
 A Cinch plugin for accessing Twitter, using [John Nunemaker's](https://github.com/jnunemaker) wonderful [Twitter gem](https://github.com/jnunemaker/twitter).
 
-Requiring the gem: `require 'cinch/plugins/twitter'`
-
 Usage
 -----
 
@@ -16,10 +14,13 @@ Usage
 Shorthand commands are also available: 
 * `@[username]<+D>`, @#[id]
 
-Loading
--------
-
-`c.plugins.plugins << Cinch::Plugins::Twitter::Client`
+Requiring and including the plugin
+----------------------------------
+    require 'cinch/plugins/twitter'
+    # ...
+    Bot.config {|c|
+    # ...
+      c.plugins.plugins << Cinch::Plugins::Twitter
 
 Configuration
 -------------
