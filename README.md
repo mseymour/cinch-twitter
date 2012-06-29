@@ -12,14 +12,16 @@ Usage
 * `?ts [term]` - Searches for three of the most recent tweets regarding the specified query
 
 Shorthand commands are also available: 
-* `@[username]<+D>`, @#[id]
+* `@[username]<+D>`, `@#[id]`
+
+If for instance, an error occurs (such as a timeout, an account is protected, or can't be found), the plugin will send a notice with an informative message.
 
 Requiring and including the plugin
 ----------------------------------
     require 'cinch/plugins/twitter'
     # ...
     Bot.config {|c|
-    # ...
+      # ...
       c.plugins.plugins << Cinch::Plugins::Twitter
 
 Configuration
