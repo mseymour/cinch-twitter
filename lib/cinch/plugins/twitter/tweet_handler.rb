@@ -58,7 +58,7 @@ module Cinch
             params = {term: "cat"}.merge(params)
             begin
               results = []
-              ::Twitter.search(params[:term], include_entities: true, rpp: 3, result_type: "recent").each {|status|
+              ::Twitter.search(params[:term], include_entities: true, rpp: 3, result_type: "recent").results.each {|status|
                 params[:username] = status.from_user
                 results << format_search(status)
               }
