@@ -58,14 +58,12 @@ module Cinch
             params = {term: "cat"}.merge(params)
             begin
               results = []
-              require 'ap'
-              ap ::Twitter.search(params[:term], include_entities: true, rpp: 3, result_type: "recent").results.methods - Kernel.methods - Object.methods
-              #::Twitter.search(params[:term], include_entities: true, rpp: 3, result_type: "recent").results.each {|status|
-              #  params[:username] = status.from_user
-              #  results << format_search(status)
-              #}
-              #results << "There are no results for \"#{params[:term]}\"." if results.empty?
-              #AMessage.new results.join("\n")
+              ::Twitter.search(params[:term], include_entities: true, rpp: 3, result_type: "recent").results.each {|status|
+                params[:username] = status.from_user
+                results << format_search(status)
+              }
+              results << "There are no results for \"#{params[:term]}\"." if results.empty?
+              AMessage.new results.join("\n")
             rescue *EXCEPTIONS => ex
               AMessage.new handle_error(ex, params[:username], @bot.nick), :notice
             end
