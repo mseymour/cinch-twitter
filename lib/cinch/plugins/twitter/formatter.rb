@@ -8,11 +8,11 @@ module Cinch
       module Formatter
 
         def format_tweet(tweet)
-          tweet_text = expand_uris(tweet.text, tweet.attrs["entities"]["urls"])
+          tweet_text = expand_uris(tweet.full_text, tweet.urls)
           parts, head, body, tail, urls = [], [], [], [], []
           head = Cinch::Formatting.format(:bold,"#{tweet.user.screen_name} »")
           body << CGI::unescapeHTML(tweet_text.gsub("\n", " ").squeeze(" "))
-          body << Cinch::Formatting.format(:aqua,"*twoosh*") if tweet.text.length == 140
+          body << Cinch::Formatting.format(:aqua,"*twoosh*") if tweet.full_text.length == 140
           tail << "From #{tweet.place.full_name}" if !tweet.place.blank?
           tail << "at #{tweet.created_at.strftime("%B %-d, %Y, %-I:%m%P")}"
           tail << "via #{tweet.source.gsub( %r{</?[^>]+?>}, '' )}"
@@ -24,11 +24,11 @@ module Cinch
         end
 
         def format_search(tweet)
-          tweet_text = expand_uris(tweet.text, tweet.attrs["entities"]["urls"])
+          tweet_text = expand_uris(tweet.full_text, tweet.urls)
           parts, head, body, tail, urls = [], [], [], [], []
           head = Cinch::Formatting.format(:bold,"#{tweet.from_user} »")
           body << CGI::unescapeHTML(tweet_text.gsub("\n", " ").squeeze(" "))
-          body << Cinch::Formatting.format(:aqua,"*twoosh*") if tweet.text.length == 140
+          body << Cinch::Formatting.format(:aqua,"*twoosh*") if tweet.full_text.length == 140
           tail << "at #{tweet.created_at.strftime("%B %-d, %Y, %-I:%m%P")}"
           urls << "https://twitter.com/#{tweet.from_user}"
           parts = [head, body, ["(", tail.join(" "), ")"].join, urls].flatten
@@ -36,7 +36,7 @@ module Cinch
         end
 
         def format_tweep_info(tweep)
-          tweep_status_text = expand_uris(tweep.status.text, tweep.status.attrs["entities"]["urls"])
+          tweep_status_text = expand_uris(tweep.status.full_text, tweep.status.urls)
           head =  "#{Cinch::Formatting.format(:aqua,tweep.name)}" + Cinch::Formatting.format(:silver," (#{tweep.screen_name})") + Cinch::Formatting.format(:grey," - #{tweep.url} https://twitter.com/#{tweep.screen_name}")
           bio = ""
           bio = Cinch::Formatting.format(:aqua,"\"#{tweep.description.strip}\"") if !tweep.description.blank?
@@ -66,12 +66,7 @@ module Cinch
         private
         
         def expand_uris t, uris
-          tweet = t.dup
-          uris.each {|u|
-            expanded_url, url = u["expanded_url"], u["url"]
-            tweet.gsub! url, expanded_url
-          }
-          return tweet
+          uris.each_with_object(t) {|entity,tweet| tweet.gsub!(entity.url, entity.expanded_url) }
         end
 
       end
