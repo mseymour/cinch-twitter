@@ -59,11 +59,14 @@ module Cinch
             begin
               results = []
               ::Twitter.search(params[:term], include_entities: true, rpp: 3, result_type: "recent").results.each {|status|
-                params[:username] = status.from_user
-                results << format_search(status)
+                puts status.text
               }
-              results << "There are no results for \"#{params[:term]}\"." if results.empty?
-              AMessage.new results.join("\n")
+              #::Twitter.search(params[:term], include_entities: true, rpp: 3, result_type: "recent").results.each {|status|
+              #  params[:username] = status.from_user
+              #  results << format_search(status)
+              #}
+              #results << "There are no results for \"#{params[:term]}\"." if results.empty?
+              #AMessage.new results.join("\n")
             rescue *EXCEPTIONS => ex
               AMessage.new handle_error(ex, params[:username], @bot.nick), :notice
             end
