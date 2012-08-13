@@ -14,7 +14,7 @@ module Cinch
           body << CGI::unescapeHTML(tweet_text.gsub("\n", " ").squeeze(" "))
           body << Cinch::Formatting.format(:aqua,"*twoosh*") if tweet.full_text.length == 140
           tail << "From #{tweet.place.full_name}" if !tweet.place.blank?
-          tail << "at #{tweet.created_at.strftime("%B %-d, %Y, %-I:%m%P")}"
+          tail << "at #{tweet.created_at.strftime("%B %-d, %Y, %-I:%M%P")}"
           tail << "via #{tweet.source.gsub( %r{</?[^>]+?>}, '' )}"
           urls << "https://twitter.com/#{tweet.user.screen_name}"
           urls << Cinch::Formatting.format(:grey,"in reply to") if !tweet.in_reply_to_screen_name.blank?
@@ -29,7 +29,7 @@ module Cinch
           head = Cinch::Formatting.format(:bold,"#{tweet.from_user} »")
           body << CGI::unescapeHTML(tweet_text.gsub("\n", " ").squeeze(" "))
           body << Cinch::Formatting.format(:aqua,"*twoosh*") if tweet.full_text.length == 140
-          tail << "at #{tweet.created_at.strftime("%B %-d, %Y, %-I:%m%P")}"
+          tail << "at #{tweet.created_at.strftime("%B %-d, %Y, %-I:%M%P")}"
           urls << "https://twitter.com/#{tweet.from_user}"
           parts = [head, body, ["(", tail.join(" "), ")"].join, urls].flatten
           parts.join(" ")
@@ -56,7 +56,7 @@ module Cinch
           tweet << CGI::unescapeHTML(tweep_status_text.gsub("\n", " ").squeeze(" "))
           tweet_tail = []
           tweet_tail << "from #{tweep.status.place.full_name}" if !tweep.status.place.blank?
-          tweet_tail << "at #{tweep.status.created_at.strftime("%B %-d, %Y, %-I:%m%P")}"
+          tweet_tail << "at #{tweep.status.created_at.strftime("%B %-d, %Y, %-I:%M%P")}"
 
           parts = [head, bio, location, desc, flags].reject(&:blank?).map {|e| e.is_a?(Array) ? "#{tweep.name} " + e.to_sentence + "." : e }
           parts << [tweet, Cinch::Formatting.format(:silver,["(", tweet_tail.join(" "), ")"].join)].join(" ")
