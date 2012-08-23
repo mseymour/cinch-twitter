@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "cinch-twitter"
-  s.version = "0.3.3"
+  s.version = "0.3.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mark Seymour"]
-  s.date = "2012-08-13"
+  s.date = "2012-08-23"
   s.description = "A Twitter plugin for Cinch."
   s.email = "mark.seymour.ns@gmail.com"
   s.extra_rdoc_files = [

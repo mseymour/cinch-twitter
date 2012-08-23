@@ -1,5 +1,6 @@
-# Version 0.3.4
+# Version 0.3.4 + 0.3.5
   * Removed useless addition of the bots nick for ENHANCE_YOUR_CALM and reworded message.
+  * Removed formatting for error messages since Cinch's Format() cannot seem to be accessible in the ErrorHandler module.
 
 # Version 0.3.3
   * Various updates and fixes
