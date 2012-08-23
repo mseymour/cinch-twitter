@@ -29,7 +29,7 @@ module Cinch
               AMessage.new format_tweet(tweet) # The fun starts here. If there is ever a problem, it'll bubble up here and be caught.
 
             rescue *EXCEPTIONS => ex
-              AMessage.new handle_error(ex, params[:username], @bot.nick), :notice
+              AMessage.new handle_error(ex, params[:username]), :notice
             end
           end
 
@@ -40,7 +40,7 @@ module Cinch
               params[:username] = tweet.user.screen_name if !tweet.user.nil? # For easy access.
               AMessage.new format_tweet(tweet) # If there is ever a problem, it'll bubble up here and be caught.
             rescue *EXCEPTIONS => ex
-              AMessage.new handle_error(ex, params[:username], @bot.nick), :notice
+              AMessage.new handle_error(ex, params[:username]), :notice
             end
           end
 
@@ -50,7 +50,7 @@ module Cinch
               tweep = ::Twitter.user params[:username], include_entities: true
               AMessage.new format_tweep_info(tweep)
             rescue *EXCEPTIONS => ex
-              AMessage.new handle_error(ex, params[:username], @bot.nick), :notice
+              AMessage.new handle_error(ex, params[:username]), :notice
             end
           end
 
@@ -65,7 +65,7 @@ module Cinch
               results << "There are no results for \"#{params[:term]}\"." if results.empty?
               AMessage.new results.join("\n")
             rescue *EXCEPTIONS => ex
-              AMessage.new handle_error(ex, params[:username], @bot.nick), :notice
+              AMessage.new handle_error(ex, params[:username]), :notice
             end
           end
 

@@ -10,10 +10,9 @@ module Cinch
           class NoTweets < Warnings; end;
         end
 
-        def handle_error(ex, username, bot_nick)
+        def handle_error(ex, username)
           params = {
-            username: username,
-            bot_nick: bot_nick
+            username: username
           }
 
         exceptions = {
@@ -22,7 +21,7 @@ module Cinch
           ::Twitter::Error::Forbidden => "Suspended!",
           ::Twitter::Error::NotFound => "The account \"%<username>s\" seems to be not found!",
           ::Twitter::Error::NotAcceptable => "An invalid format is specified in the search request.",
-          ::Twitter::Error::EnhanceYourCalm => "Enhance your calm. %<bot_nick>s is being rate limited.",
+          ::Twitter::Error::EnhanceYourCalm => "Enhance your calm. I am being rate limited.",
           ::Twitter::Error::InternalServerError => "Something seems to be broken! Please try again in a minute.",
           ::Twitter::Error::BadGateway => "Twitter seems to be down, or is being upgraded. Please try again in a minute.",
           ::Twitter::Error::ServiceUnavailable => "Twitter is currently under heavy load. Please try again in a few minutes, and hopefully it'll clear up.",

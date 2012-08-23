@@ -1,3 +1,6 @@
+# Version 0.3.3
+  * Various updates and fixes
+
 # Version 0.3.0
   * The plugin now requires Twitter 3.0.0 and above.
 
