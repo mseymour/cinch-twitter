@@ -1,3 +1,6 @@
+# Version 0.3.6
+  * Query commands (?tw, ?ts) now only fire if the command is at the start of the line.
+
 # Version 0.3.4 + 0.3.5
   * Removed useless addition of the bots nick for ENHANCE_YOUR_CALM and reworded message.
   * Removed formatting for error messages since Cinch's Format() cannot seem to be accessible in the ErrorHandler module.

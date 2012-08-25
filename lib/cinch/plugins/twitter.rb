@@ -58,7 +58,7 @@ module Cinch
         end
       end
 
-      match /\?tw (\w+)$/, method: :execute_info, use_prefix: false
+      match /^\?tw (\w+)$/, method: :execute_info, use_prefix: false
       def execute_info(m, username)
         result = TweetHandler.tweep_info(username: username)
         if is_notice?(result)
@@ -68,7 +68,7 @@ module Cinch
         end
       end
 
-      match /\?ts (.+)$/, method: :execute_search, use_prefix: false
+      match /^\?ts (.+)$/, method: :execute_search, use_prefix: false
       def execute_search(m, term)
         result = TweetHandler.search_by_term(term: term)
         if is_notice?(result)
