@@ -18,7 +18,7 @@ module Cinch
           tail << "via #{tweet.source.gsub( %r{</?[^>]+?>}, '' )}"
           urls << "https://twitter.com/#{tweet.user.screen_name}"
           urls << Cinch::Formatting.format(:grey,"in reply to") if !tweet.in_reply_to_screen_name.blank?
-          urls << "http://twitter.com/#{tweet.in_reply_to_screen_name}#{"/statuses/#{tweet.in_reply_to_status_id.to_s}" if !tweet.in_reply_to_status_id.blank?}" if !tweet.in_reply_to_screen_name.blank?
+          urls << "https://twitter.com/#{tweet.in_reply_to_screen_name}#{"/statuses/#{tweet.in_reply_to_status_id.to_s}" if !tweet.in_reply_to_status_id.blank?}" if !tweet.in_reply_to_screen_name.blank?
           parts = [head, body, ["(", tail.join(" "), ")"].join, urls].flatten
           parts.join(" ")
         end
