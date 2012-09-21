@@ -36,7 +36,7 @@ module Cinch
         end
 
         def format_tweep_info(tweep)
-          head =  "#{Cinch::Formatting.format(:aqua,tweep.name)}" + Cinch::Formatting.format(:silver," (#{tweep.screen_name})") + Cinch::Formatting.format(:grey," - #{tweep.url} https://twitter.com/#{tweep.screen_name}")
+          head =  "#{Cinch::Formatting.format(:aqua,tweep.name)}" + Cinch::Formatting.format(:silver," (#{tweep.screen_name})") + Cinch::Formatting.format(:grey," - #{tweep.url ? "#{tweep.url} " : ''}https://twitter.com/#{tweep.screen_name}")
           bio = ""
           bio = Cinch::Formatting.format(:aqua,"\"#{tweep.description.strip}\"") if !tweep.description.blank?
           location = ""

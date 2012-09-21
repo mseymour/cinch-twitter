@@ -1,3 +1,6 @@
+# Version 0.3.12 (tba)
+  * Various fixes
+
 # Version 0.3.8 .. Version 0.3.11
   * ?tw <nick> no longer raises an exception when status does not exist.
 
