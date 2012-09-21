@@ -1,3 +1,6 @@
+# Version 0.3.8
+  * ?tw <nick> no longer raises an exception when status does not exist.
+
 # Version 0.3.7
   * Another minor fix. Made https the standard for all links.
 
