@@ -62,7 +62,7 @@ module Cinch
           end
 
           parts = [head, bio, location, desc, flags].reject(&:blank?).map {|e| e.is_a?(Array) ? "#{tweep.name} " + e.to_sentence + "." : e }
-          parts << [tweet, Cinch::Formatting.format(:silver,["(", tweet_tail.join(" "), ")"].join)].join(" ")
+          parts << [tweet, Cinch::Formatting.format(:silver,["(", tweet_tail.join(" "), ")"].join)].join(" ") if tweep.status
           parts.join("\n")
         end
       
