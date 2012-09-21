@@ -36,7 +36,6 @@ module Cinch
         end
 
         def format_tweep_info(tweep)
-          tweep_status_text = expand_uris(tweep.status.full_text, tweep.status.urls)
           head =  "#{Cinch::Formatting.format(:aqua,tweep.name)}" + Cinch::Formatting.format(:silver," (#{tweep.screen_name})") + Cinch::Formatting.format(:grey," - #{tweep.url} https://twitter.com/#{tweep.screen_name}")
           bio = ""
           bio = Cinch::Formatting.format(:aqua,"\"#{tweep.description.strip}\"") if !tweep.description.blank?
@@ -52,11 +51,15 @@ module Cinch
           flags << "is a translator for Twitter" if tweep.is_translator?
           flags << "is verified" if tweep.verified?
           flags << "would rather keep their life secret" if tweep.protected?
-          tweet = [] << Cinch::Formatting.format(:aqua,"Their latest tweet:")
-          tweet << CGI::unescapeHTML(tweep_status_text.gsub("\n", " ").squeeze(" "))
-          tweet_tail = []
-          tweet_tail << "from #{tweep.status.place.full_name}" if !tweep.status.place.blank?
-          tweet_tail << "at #{tweep.status.created_at.strftime("%B %-d, %Y, %-I:%M%P")}"
+          tweet = [] 
+          if tweep.status
+            tweep_status_text = expand_uris(tweep.status.full_text, tweep.status.urls)
+            tweet << Cinch::Formatting.format(:aqua,"Their latest tweet:")
+            tweet << CGI::unescapeHTML(tweep_status_text.gsub("\n", " ").squeeze(" "))
+            tweet_tail = []
+            tweet_tail << "from #{tweep.status.place.full_name}" if !tweep.status.place.blank?
+            tweet_tail << "at #{tweep.status.created_at.strftime("%B %-d, %Y, %-I:%M%P")}"
+          end
 
           parts = [head, bio, location, desc, flags].reject(&:blank?).map {|e| e.is_a?(Array) ? "#{tweep.name} " + e.to_sentence + "." : e }
           parts << [tweet, Cinch::Formatting.format(:silver,["(", tweet_tail.join(" "), ")"].join)].join(" ")
