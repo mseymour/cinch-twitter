@@ -1,3 +1,6 @@
+# Version 0.3.7
+  * Another minor fix. Made https the standard for all links.
+
 # Version 0.3.6
   * Query commands (?tw, ?ts) now only fire if the command is at the start of the line.
 
