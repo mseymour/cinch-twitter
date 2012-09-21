@@ -52,11 +52,11 @@ module Cinch
           flags << "is verified" if tweep.verified?
           flags << "would rather keep their life secret" if tweep.protected?
           tweet = [] 
+          tweet_tail = []
           if tweep.status
             tweep_status_text = expand_uris(tweep.status.full_text, tweep.status.urls)
             tweet << Cinch::Formatting.format(:aqua,"Their latest tweet:")
             tweet << CGI::unescapeHTML(tweep_status_text.gsub("\n", " ").squeeze(" "))
-            tweet_tail = []
             tweet_tail << "from #{tweep.status.place.full_name}" if !tweep.status.place.blank?
             tweet_tail << "at #{tweep.status.created_at.strftime("%B %-d, %Y, %-I:%M%P")}"
           end

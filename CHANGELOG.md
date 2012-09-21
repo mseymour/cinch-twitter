@@ -1,4 +1,4 @@
-# Version 0.3.8
+# Version 0.3.8 + Version 0.3.9
   * ?tw <nick> no longer raises an exception when status does not exist.
 
 # Version 0.3.7
