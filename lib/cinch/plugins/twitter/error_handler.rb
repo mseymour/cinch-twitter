@@ -28,7 +28,7 @@ module Cinch
           Warnings::TooManyTweets => "You cannot backtrack past 20 tweets.",
           Warnings::NoTweets => "%<username>s is lame for creating an account and not tweeting yet!"}
 
-          "Uhoh! · #{exceptions[ex.class]}" % params;
+          "Uhoh! · #{exceptions[ex.class]} (#{ex.message})" % params;
         end
       end
     end
