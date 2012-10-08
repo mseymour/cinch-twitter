@@ -1,5 +1,6 @@
-# Version 0.3.12 (tba)
+# Version 0.3.12
   * Various fixes
+  * Fixing Gemfile's dependencies
 
 # Version 0.3.8 .. Version 0.3.11
   * ?tw <nick> no longer raises an exception when status does not exist.
