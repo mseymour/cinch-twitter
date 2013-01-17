@@ -1,16 +1,19 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cinch-twitter/version'
+require 'cinch/plugins/twitter/version'
 
 Gem::Specification.new do |gem|
+  gem.add_dependency 'twitter', '~> 4.0'
+  gem.add_dependency 'cinch', '~> 2.0.3'
+
   gem.name          = "cinch-twitter"
   gem.version       = Cinch::Twitter::VERSION
   gem.authors       = ["Mark Seymour"]
   gem.email         = ["mark.seymour.ns@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{A Twitter plugin for Cinch.}
+  gem.summary       = %q{A Cinch plugin for accessing Twitter.}
+  gem.homepage      = "https://github.com/mseymour/cinch-twitter"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
