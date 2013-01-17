@@ -1,3 +1,7 @@
+# Version 1.0.0 (tbc)
+  * Major rewrite from the ground up
+  * Uses Twitter gem 4.* (API v.1.1)
+
 # Version 0.3.12 + 0.3.13
   * Various fixes
   * Fixing Gemfile's dependencies
