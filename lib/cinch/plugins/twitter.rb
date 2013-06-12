@@ -1,9 +1,6 @@
 # coding: utf-8
 
 require 'twitter'
-require 'active_support/core_ext/object/blank'
-require 'active_support/core_ext/array/conversions'
-require 'cinch/plugins/twitter/tweet_handler'
 
 module Cinch
   module Plugins
@@ -19,7 +16,7 @@ module Cinch
       def initialize(*args)
         super
         keys = config[:access_keys]
-        ::Twitter.configure do |c|
+        Twitter.configure do |c|
           c.consumer_key = keys["consumer_key"]
           c.consumer_secret = keys["consumer_secret"]
           c.oauth_token = keys["oauth_token"]
@@ -36,46 +33,23 @@ module Cinch
       match /tw (\w+)(?:-(\d+))?$/, method: :execute_tweet
       match /^@(\w+)(?:-(\d+))?$/, method: :execute_tweet, use_prefix: false
       def execute_tweet(m, username = nil, nth_tweet = nil)
-        options = {}
-        options[:username] = username unless username.nil?
-        options[:nth_tweet] = nth_tweet unless nth_tweet.nil?
-        result = TweetHandler.tweet_by_username(options)
-        if is_notice?(result)
-          m.user.notice result.message
-        else
-          m.reply result.message
-        end
+        m.reply "username:#{username}; nth_tweet:#{nth_tweet}"
       end
 
       match /tw #(\d+)$/, method: :execute_id
       match /^@#(\d+)$/, method: :execute_id, use_prefix: false
       def execute_id(m, id)
-        result = TweetHandler.tweet_by_id(id: id)
-        if is_notice?(result)
-          m.user.notice result.message
-        else
-          m.reply result.message
-        end
+        m.reply "id:#{id}"
       end
 
       match /^\?tw (\w+)$/, method: :execute_info, use_prefix: false
       def execute_info(m, username)
-        result = TweetHandler.tweep_info(username: username)
-        if is_notice?(result)
-          m.user.notice result.message
-        else
-          m.reply result.message
-        end
+        m.reply "username:#{username}"
       end
 
       match /^\?ts (.+)$/, method: :execute_search, use_prefix: false
       def execute_search(m, term)
-        result = TweetHandler.search_by_term(term: term)
-        if is_notice?(result)
-          m.user.notice result.message
-        else
-          m.reply result.message
-        end
+        m.reply "term:#{term}"
       end
 
     end
