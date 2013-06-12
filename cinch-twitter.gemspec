@@ -4,11 +4,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cinch/plugins/twitter/version'
 
 Gem::Specification.new do |gem|
-  gem.add_dependency 'twitter', '~> 4.0'
-  gem.add_dependency 'cinch', '~> 2.0.3'
+  gem.add_dependency 'twitter', '~> 4.8'
+  gem.add_dependency 'cinch', '~> 2.0'
 
   gem.name          = "cinch-twitter"
-  gem.version       = Cinch::Twitter::VERSION
+  gem.version       = Cinch::Plugins::Twitter::VERSION
   gem.authors       = ["Mark Seymour"]
   gem.email         = ["mark.seymour.ns@gmail.com"]
   gem.description   = %q{A Twitter plugin for Cinch.}
