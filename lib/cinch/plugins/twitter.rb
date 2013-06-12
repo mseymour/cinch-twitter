@@ -16,7 +16,7 @@ module Cinch
       def initialize(*args)
         super
         keys = config[:access_keys]
-        Twitter.configure do |c|
+        ::Twitter.configure do |c|
           c.consumer_key = keys["consumer_key"]
           c.consumer_secret = keys["consumer_secret"]
           c.oauth_token = keys["oauth_token"]
