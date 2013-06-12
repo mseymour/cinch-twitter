@@ -1,22 +1,23 @@
-# -*- encoding: utf-8 -*-
+# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cinch/plugins/twitter/version'
+require 'cinch/twitter/version'
 
-Gem::Specification.new do |gem|
-  gem.add_dependency 'twitter', '~> 4.8'
-  gem.add_dependency 'cinch', '~> 2.0'
+Gem::Specification.new do |spec|
+  spec.name          = "cinch-twitter"
+  spec.version       = Cinch::Twitter::VERSION
+  spec.authors       = ["Mark Seymour"]
+  spec.email         = ["mark.seymour.ns@gmail.com"]
+  spec.description   = %q{TODO: Write a gem description}
+  spec.summary       = %q{TODO: Write a gem summary}
+  spec.homepage      = ""
+  spec.license       = "MIT"
 
-  gem.name          = "cinch-twitter"
-  gem.version       = Cinch::Plugins::Twitter::VERSION
-  gem.authors       = ["Mark Seymour"]
-  gem.email         = ["mark.seymour.ns@gmail.com"]
-  gem.description   = %q{A Twitter plugin for Cinch.}
-  gem.summary       = %q{A Cinch plugin for accessing Twitter.}
-  gem.homepage      = "https://github.com/mseymour/cinch-twitter"
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ["lib"]
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
+  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "rake"
 end
