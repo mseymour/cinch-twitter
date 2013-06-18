@@ -1,6 +1,8 @@
-# Version 1.0.0 (tbc)
+# Version 1.0.0
   * Major rewrite from the ground up
-  * Uses Twitter gem 4.* (API v.1.1)
+  * Uses Twitter gem 4.8 (API v.1.1)
+  * Removes ?ts and ?tw commands (twitter search and twitter user info respectively)
+  * Your OAuth and access keys can still be entered the same way as before in config
 
 # Version 0.3.12 + 0.3.13
   * Various fixes
