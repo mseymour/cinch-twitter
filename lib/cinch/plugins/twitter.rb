@@ -30,7 +30,6 @@ module Cinch
       match /(\w+)(?:-(\d+))?$/, method: :execute_tweet, prefix: /^@/
       def execute_tweet m, username, offset
         offset ||= 0
-        debug "TWITTER: offset set to #{offset}"
         
         user = ::Twitter.user(username)
         
