@@ -9,10 +9,11 @@ module Cinch
       include Cinch::Plugin
       
       TWITTER_URL_BASE = 'https://twitter.com/'
+      ERROR_TPL = Cinch::Formatting.format(:bold, 'Uhoh! »') + ' %s'
       
       set(
         plugin_name: "Twitter",
-        help: "Access Twitter from the comfort of your IRC client! Usage:\n* `!tw <username><+D>` - Gets the latest tweet of the specified user, or the tweet 'D' tweets back, between 1 and 20.\n* `!tw #[id]` - Gets the tweet at the specified ID\n* `?tw [username]` - Gets the specified user's Twitter profile\n* `?ts [term]` - Searches for three of the most recent tweets regarding the specified query\n\nShorthand: `@[username]<+D>`, @#[id]",
+        help: "Access Twitter from the comfort of your IRC client! Usage:\n* `!tw <username><-D>` - Gets the latest tweet of the specified user, or the tweet 'D' tweets back, between 1 and 20.\n* `!tw #[id]` - Gets the tweet at the specified ID\n* `?tw [username]` - Gets the specified user's Twitter profile\n* `?ts [term]` - Searches for three of the most recent tweets regarding the specified query\n\nShorthand: `@[username]<+D>`, @#[id]",
         required_options: [:access_keys])
       
       def initialize *args
@@ -29,9 +30,27 @@ module Cinch
       match /(\w+)(?:-(\d+))?$/, method: :execute_tweet, prefix: /^@/
       def execute_tweet m, username, offset
         offset ||= 0
-        tweets = ::Twitter.user_timeline(username)
-        tweet = tweets[offset.to_i]
+        debug "TWITTER: offset set to #{offset}"
+        
+        user = ::Twitter.user(username)
+        
+        return m.reply ERROR_TPL % "#{user.screen_name}'s tweets are protected." if user.protected?
+        return m.reply "#{user.screen_name} is lame because they haven't tweeted yet!" if user.status.nil?
+        
+        # Getting the user's 20 latest tweets if our offset is greater than 0:
+        if offset.to_i > 0
+          tweets = ::Twitter.user_timeline(user)
+          return m.reply ERROR_TPL % "You cannot backtrack more than #{tweets.count.pred} tweets before the current tweet." if offset.to_i > tweets.count.pred
+          tweet = tweets[offset.to_i]
+        # Otherwise, just get the latest tweet from the user object.
+        else
+          tweet = user.status
+        end
         m.reply format_tweet(tweet)
+      rescue ::Twitter::Error::NotFound => e
+        m.reply ERROR_TPL % "#{username} doesn't exist."
+      rescue ::Twitter::Error => e
+        m.reply ERROR_TPL % "#{e.message.gsub(/user/i, username)}. (#{e.class})"
       end
       
       private
