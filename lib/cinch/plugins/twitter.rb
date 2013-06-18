@@ -52,6 +52,21 @@ module Cinch
         m.reply ERROR_TPL % "#{e.message.gsub(/user/i, username)}. (#{e.class})"
       end
       
+      
+      match /tw #(\d+)$/, method: :execute_id
+      match /#(\d+)$/, method: :execute_id, prefix: /^@/
+      def execute_id m, id
+        tweet = ::Twitter.status(id)
+        
+        #return m.reply ERROR_TPL % "#{user.screen_name}'s tweets are protected." if user.protected?
+        
+        m.reply format_tweet(tweet)
+      rescue ::Twitter::Error::NotFound => e
+        m.reply ERROR_TPL % "#{id} doesn't exist."
+      rescue ::Twitter::Error => e
+        m.reply ERROR_TPL % "#{e.message.gsub(/user/i, id)}. (#{e.class})" 
+      end
+      
       private
       
       def format_tweet tweet
