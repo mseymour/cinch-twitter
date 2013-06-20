@@ -2,6 +2,7 @@
 
 require "oj"
 require "twitter"
+require "cgi"
 
 module Cinch
   module Plugins
@@ -76,7 +77,7 @@ module Cinch
         head << "(RT from %s)" % tweet.retweeted_status.user.screen_name if tweet.retweet?
         
         # Tweet tweet
-        body = !!tweet.retweet? ? tweet.retweeted_status.full_text : tweet.full_text
+        body = expand_uris(CGI.unescapeHTML(!!tweet.retweet? ? tweet.retweeted_status.full_text : tweet.full_text).gsub("\n", " ").squeeze(" "), tweet.urls)
         
         # Metadata
         tail = []
@@ -94,6 +95,10 @@ module Cinch
       
       def format_reply_url(username, id)
         "#{TWITTER_URL_BASE}#{username}#{"/status/#{id}" if !!id}"
+      end
+      
+      def expand_uris(t, uris)
+        uris.each_with_object(t) {|entity,tweet| tweet.gsub!(entity.url, entity.expanded_url) }
       end
       
     end

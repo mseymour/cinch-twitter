@@ -1,3 +1,7 @@
+# Version 1.0.1
+  * Unescapes HTML in tweets
+  * Expands t.co links to full URIs as has been in previous versions prior to 1.0.0
+
 # Version 1.0.0
   * Major rewrite from the ground up
   * Uses Twitter gem 4.8 (API v.1.1)
