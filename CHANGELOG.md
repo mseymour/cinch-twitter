@@ -1,4 +1,4 @@
-# Version 1.0.3
+# Version 1.0.4
   * Fixes an issue where retweeted statuses' have no user associated with them
 
 # Version 1.0.1
