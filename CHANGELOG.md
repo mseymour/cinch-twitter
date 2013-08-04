@@ -1,3 +1,6 @@
+# Version 1.0.2
+  * Fixes an issue where retweeted statuses' have no user associated with them
+
 # Version 1.0.1
   * Unescapes HTML in tweets
   * Expands t.co links to full URIs as has been in previous versions prior to 1.0.0
