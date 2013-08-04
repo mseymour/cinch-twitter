@@ -74,10 +74,8 @@ module Cinch
         # Username (and retweeted username if applicable)
         head = []
         head << tweet.user.screen_name
-        if tweet.retweeted_status.user.nil?
-          head << "(RT)" if tweet.retweet?
-        else
-          head << "(RT from %s)" % tweet.retweeted_status.user.screen_name if tweet.retweet?
+        if tweet.retweet?
+          head << (!tweet.retweeted_status.nil? ? "(RT from %s)" % tweet.retweeted_status.user.screen_name : "(RT)")
         end
         
         # Tweet tweet
