@@ -74,7 +74,11 @@ module Cinch
         # Username (and retweeted username if applicable)
         head = []
         head << tweet.user.screen_name
-        head << "(RT from %s)" % tweet.retweeted_status.user.screen_name if tweet.retweet?
+        if tweet.retweeted_status.user.nil?
+          head << "(RT)" if tweet.retweet?
+        else
+          head << "(RT from %s)" % tweet.retweeted_status.user.screen_name if tweet.retweet?
+        end
         
         # Tweet tweet
         body = expand_uris(CGI.unescapeHTML(!!tweet.retweet? ? tweet.retweeted_status.full_text : tweet.full_text).gsub("\n", " ").squeeze(" "), tweet.urls)
