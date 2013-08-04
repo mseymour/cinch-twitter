@@ -75,7 +75,7 @@ module Cinch
         head = []
         head << tweet.user.screen_name
         if tweet.retweet?
-          head << (!tweet.retweeted_status.nil? ? "(RT from %s)" % tweet.retweeted_status.user.screen_name : "(RT)")
+          head << (tweet.retweeted_status.user.nil? ? "(RT)" : ("(RT from %s)" % tweet.retweeted_status.user.screen_name))
         end
         
         # Tweet tweet
