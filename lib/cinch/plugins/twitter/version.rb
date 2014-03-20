@@ -1,5 +1,5 @@
 module Cinch
   module Twitter
-    VERSION = "1.0.4"
+    VERSION = "2.0"
   end
 end
