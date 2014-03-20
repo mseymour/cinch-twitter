@@ -1,3 +1,6 @@
+# Version 2.0.2
+  * Brings everything up to the latest version of the Twitter gem. Portions rewritten by @Namasteh.
+
 # Version 1.0.4
   * Fixes an issue where retweeted statuses' have no user associated with them
 
