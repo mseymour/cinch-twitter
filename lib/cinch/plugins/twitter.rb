@@ -16,7 +16,7 @@ module Cinch
         Usage:
         * !tw <handle(-D)>: Fetch the latest Tweet from the bot or include an offset (I.E. !tw someuser-2) to fetch (-D) Tweets back (up to 19)
         * @<handle(-D): Same as above, just shorthand.
-        * !t-search <terms>: Searches recent tweets containing your terms and returns the most recent three. You can search hash tags or do 'to:<handle>' to get the most recent tweets sent to that handle.
+        * !t-search <terms>: Searches recent tweets containing your terms and returns the most recent four. You can search hash tags or do 'to:<handle>' to get the most recent tweets sent to that handle.
         USAGE
 
       def initialize(*args)
@@ -30,13 +30,13 @@ module Cinch
       def execute_tweet(m, username, offset)
         offset ||= 0
 
-        user = @client.user(username)
+        user = @client.user(username, include_entities: "1")
 
         return m.reply "This user's tweets are protected!" if user.protected?
         return m.reply "This user hasn't tweeted yet!" if user.status.nil?
 
         if offset.to_i > 0
-          tweets = @client.user_timeline(user)
+          tweets = @client.user_timeline(user, include_entities: "1")
           return m.reply "You can not backtrack more than #{tweets.count.pred} tweets before the current tweet!" if offset.to_i > tweets.count.pred
           tweet = tweets[offset.to_i]
 
@@ -53,7 +53,7 @@ module Cinch
       match /t-search (.+)/, method: :execute_search
 
       def execute_search(m, term)    
-        @client.search("#{term}", :result_type => "recent").take(3).each do |tweet|
+        @client.search("#{term}", :result_type => "recent").take(4).each do |tweet|
         m.reply format_tweet(tweet)
       end
     end
@@ -62,7 +62,7 @@ module Cinch
       match /#(\d+)$/, method: :execute_id, prefix: /^@/
 
       def execute_id(m, id)
-        tweet = @client.status(id)
+        tweet = @client.status(id, include_entities: "1")
 
         m.reply format_tweet(tweet)
       rescue ::Twitter::Error::NotFound => e
@@ -82,29 +82,28 @@ module Cinch
         end
 
         # Tweet tweet
-        body = expand_uris(CGI.unescapeHTML(!!tweet.retweet? ? tweet.retweeted_status.full_text : tweet.full_text).gsub("\n", " ").squeeze(" "), tweet.urls)
-
+        body = CGI.unescapeHTML(!!tweet.retweet? ? tweet.retweeted_status.full_text : tweet.full_text).gsub("\n", " ").squeeze(" ")
+        body = expand_uris(body, tweet.urls)
+        
         # Metadata
-        ttime = tweet.created_at
+        ttime = tweet.created_at.getutc
         tail = []
-        tail << ttime.ago.to_words
-        tail << "from #{tweet.place.full_name}" if !!tweet.place
+        tail << ttime.ago.to_time.strftime('%b %-e %Y, %-l:%M %p %Z')
+        tail << "from #{tweet.place.full_name}" if !tweet.place.nil? && !!tweet.place.full_name
         tail << "via #{tweet.source.gsub( %r{</?[^>]+?>}, "" )}"
 
         # URLs for tweet and replied to:
         urls = []
-        urls << "https://twitter.com/#{tweet.user.screen_name}/status/#{tweet.id}"
+        urls << tweet.url
         urls << "in reply to #{format_reply_url(tweet.in_reply_to_screen_name, tweet.in_reply_to_status_id)}" if tweet.reply?
 
         [Format(:bold, [*head, "»"] * " "), body, ["(", tail * " · ", ")"].join, urls * " "].join(" ")
       end
 
-      def format_reply_url(username, id)
-        "https://twitter.com/#{username}#{"/status/#{id}" if !!id}"
-      end
-
       def expand_uris(t, uris)
-        uris.each_with_object(t) {            |entity, tweet| tweet.gsub!(entity.url, entity.expanded_url)        }
+        uris.each_with_object(t) { |entity, tweet| 
+          tweet.gsub!(entity.url.to_s, entity.expanded_url.to_s) 
+        }
       end
 
       def twitter_client          
@@ -118,5 +117,3 @@ module Cinch
     end
   end
 end
-
-

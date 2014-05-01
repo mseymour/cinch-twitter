@@ -1,3 +1,8 @@
+# Version 2.0.3
+  * Fixes many regressions introduced in 2.0.2, including URLs not being expanded and parts of the tweet metadata being blank (i.e. 'from XXX')
+  * Switches back to UTC time for all tweet output
+  * Various small fixes
+
 # Version 2.0.2
   * Brings everything up to the latest version of the Twitter gem. Portions rewritten by @Namasteh.
 
