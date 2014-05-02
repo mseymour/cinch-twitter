@@ -1,4 +1,4 @@
-# Version 2.0.4
+# Version 2.0.5
   * Fixes a regression where a removed method made any tweets that had replies cause an exception to be raised.
 
 # Version 2.0.3

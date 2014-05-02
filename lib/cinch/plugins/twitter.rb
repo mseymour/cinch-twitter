@@ -95,7 +95,7 @@ module Cinch
         # URLs for tweet and replied to:
         urls = []
         urls << tweet.url
-        urls << "in reply to https://twitter.com/#{format_reply_url(tweet.in_reply_to_screen_name}/status/#{tweet.in_reply_to_status_id}" if tweet.reply?
+        urls << "in reply to https://twitter.com/#{tweet.in_reply_to_screen_name}/status/#{tweet.in_reply_to_status_id}" if tweet.reply?
 
         [Format(:bold, [*head, "»"] * " "), body, ["(", tail * " · ", ")"].join, urls * " "].join(" ")
       end
