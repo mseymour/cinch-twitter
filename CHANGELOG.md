@@ -1,3 +1,6 @@
+# Version 2.0.4
+  * Fixes a regression where a removed method made any tweets that had replies cause an exception to be raised.
+
 # Version 2.0.3
   * Fixes many regressions introduced in 2.0.2, including URLs not being expanded and parts of the tweet metadata being blank (i.e. 'from XXX')
   * Switches back to UTC time for all tweet output
