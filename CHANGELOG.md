@@ -1,3 +1,7 @@
+# Version 2.0.6
+  * Updates dependencies to the latest version of Cinch and Twitter gems.
+  * Code cleanup
+
 # Version 2.0.5
   * Fixes a regression where a removed method made any tweets that had replies cause an exception to be raised.
 

@@ -3,7 +3,6 @@
 require "oj"
 require "twitter"
 require "cgi"
-require "time-lord"
 
 module Cinch
   module Plugins
@@ -88,7 +87,7 @@ module Cinch
         # Metadata
         ttime = tweet.created_at.getutc
         tail = []
-        tail << ttime.ago.to_time.strftime('%b %-e %Y, %-l:%M %p %Z')
+        tail << ttime.strftime('%b %-e %Y, %-l:%M %p %Z')
         tail << "from #{tweet.place.full_name}" if !tweet.place.nil? && !!tweet.place.full_name
         tail << "via #{tweet.source.gsub( %r{</?[^>]+?>}, "" )}"
 
